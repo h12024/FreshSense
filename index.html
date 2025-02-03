@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FreshSense</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            color: #2F4F2F; /* Dark text for light mode */
+            background-color: #FFFFFF; /* Light background for light mode */
+            transition: background-color 0.3s, color 0.3s;
+        }
+        
+        body.dark-mode {
+            background-color: #1E1E1E; /* Dark background for dark mode */
+            color: #D3D3D3; /* Light text for dark mode */
+        }
+        
+        header {
+            background-color: #EFF4E6;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        header h1 {
+            margin: 0;
+            font-size: 24px;
+            cursor: pointer;
+            color: #2F4F2F;
+        }
+        
+        header .menu {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        header .search-bar {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        header .search-bar input {
+            padding: 5px;
+            border: 1px solid #CCCCCC;
+            border-radius: 5px;
+            color: #2F4F2F;
+            background-color: #FFFFFF;
+        }
+        
+        body.dark-mode header .search-bar input {
+            color: #D3D3D3;
+            background-color: #333333;
+            border: 1px solid #555555;
+        }
+        
+        header .search-bar button {
+            padding: 5px 10px;
+            background-color: #2F4F2F;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        header .menu .dropdown {
+            position: relative;
+        }
+        
+        header .menu .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background-color: #FFFFFF;
+            min-width: 150px;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        header .menu .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        
+        header .menu .dropdown-content a {
+            display: block;
+            padding: 10px 15px;
+            color: #2F4F2F;
+            text-decoration: none;
+        }
+        
+        header .menu .dropdown-content a:hover {
+            background-color: #EFF4E6;
+        }
+        
+        header .theme-toggle {
+            cursor: pointer;
+            font-size: 18px;
+        }
+        
+        header .profile-icon img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+        
+        
+        .hero {
+            background-color: #F7FBF2;
+            text-align: center;
+            padding: 40px;
+        }
+        
+        body.dark-mode .hero {
+            background-color: #333333;
+        }
+        
+        .hero h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: #2F4F2F;
+        }
+        
+        body.dark-mode .hero h2 {
+            color: #D3D3D3;
+        }
+        
+        .hero p {
+            font-size: 18px;
+            color: #2F4F2F;
+        }
+        
+        body.dark-mode .hero p {
+            color: #D3D3D3;
+        }
+        
+        .articles {
+            background-color: #E9E4F0;
+            padding: 40px 20px;
+        }
+        
+        body.dark-mode .articles {
+            background-color: #333333;
+        }
+        
+        .articles h2 {
+            text-align: center;
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #2F4F2F;
+        }
+        
+        body.dark-mode .articles h2 {
+            color: #D3D3D3;
+        }
+        
+        .article-grid {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+        
+        .article {
+            background-color: #FFFFFF;
+            border: 1px solid #CCCCCC;
+            border-radius: 5px;
+            padding: 15px;
+            max-width: 300px;
+            text-align: center;
+            transition: transform 0.3s, background-color 0.3s;
+        }
+        
+        body.dark-mode .article {
+            background-color: #555555;
+            border: 1px solid #777777;
+        }
+        
+        .article:hover {
+            transform: scale(1.05);
+            background-color: #F7FBF2;
+        }
+        
+        body.dark-mode .article:hover {
+            background-color: #666666;
+        }
+        
+        .article img {
+            max-width: 100%;
+            border-radius: 5px;
+        }
+        
+        .research {
+            background-color: #2F4F2F;
+            color: white;
+            padding: 40px;
+        }
+        
+        body.dark-mode .research {
+            background-color: #444444;
+        }
+        
+        .research h2 {
+            text-align: center;
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+        
+        body.dark-mode .research h2 {
+            color: #D3D3D3;
+        }
+        
+        .research-content {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .research-section {
+            flex: 1;
+            background-color: #3C6E47;
+            padding: 20px;
+            border-radius: 5px;
+        }
+        
+        body.dark-mode .research-section {
+            background-color: #555555;
+        }
+        
+        .upload-section {
+            background-color: #F7FBF2;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        
+        body.dark-mode .upload-section {
+            background-color: #333333;
+        }
+        
+        .upload-section h3 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #2F4F2F;
+        }
+        
+        body.dark-mode .upload-section h3 {
+            color: #D3D3D3;
+        }
+        
+        .upload-section input[type="file"] {
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .upload-section button {
+            padding: 10px 20px;
+            background-color: #2F4F2F;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        body.dark-mode .upload-section button {
+            background-color: #3C6E47;
+        }
+        
+        .result-section {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #FF8C00;
+            color: white;
+            border-radius: 5px;
+            display: none;
+        }
+        
+        footer {
+            background-color: #EFF4E6;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        body.dark-mode footer {
+            background-color: #444444;
+        }
+        
+        footer input {
+            padding: 5px;
+            margin-right: 10px;
+            border: 1px solid #CCCCCC;
+            border-radius: 5px;
+        }
+        
+        footer button {
+            padding: 5px 10px;
+            background-color: #2F4F2F;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        body.dark-mode footer button {
+            background-color: #3C6E47;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1 onclick="scrollToTop()">FreshSense</h1>
+        <div class="search-bar">
+            <input type="text" placeholder="Search here...">
+            <button>Search</button>
+        </div>
+        <div class="menu">
+            <div class="dropdown">
+                <span>Menu</span>
+                <div class="dropdown-content">
+                    <a href="#">Home</a>
+                    <a href="#upload-section">Check for Freshness</a>
+                    <a href="#articles">Articles</a>
+                </div>
+            </div>
+            <div class="theme-toggle" onclick="toggleTheme()">
+                <span id="theme-icon">🌙</span>
+            </div>
+        </div>
+        <div class="profile-icon">
+            <img src="https://via.placeholder.com/30" alt="Profile" onclick="redirectToRegister()" style="cursor: pointer;">
+        </div>
+    </header>
+
+    <section class="hero">
+        <h2>Discover Freshness</h2>
+        <p>Welcome to FreshSense Lab. Explore the world of freshness detection and recommendations.</p>
+    </section>
+
+    <section class="articles" id="articles">
+        <h2>Latest Articles</h2>
+        <div class="article-grid">
+            <div class="article">
+                <img src="https://i.pinimg.com/736x/49/56/c5/4956c56c0426e221ed06cd7e448a80d1.jpg" alt="Article 1">
+                <h3>Young and Independent?</h3>
+                <p>Are you a young adult living independently and struggling to...</p>
+            </div>
+            <div class="article">
+                <img src="https://i.pinimg.com/736x/71/2c/de/712cde61f70132a6b63659b441d3a174.jpg" alt="Article 2">
+                <h3>Enhance Fruit Freshness</h3>
+                <p>Ensuring the freshness of fruits and vegetables is key...</p>
+            </div>
+            <div class="article">
+                <img src="https://i.pinimg.com/736x/7e/3f/8d/7e3f8d69060c371cc46e806a5f22b1c1.jpg" alt="Article 3">
+                <h3>FreshSense: Your Ultimate Tool</h3>
+                <p>Are you tired of guessing whether fruits and vegetables...</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="research">
+        <h2>Research Insights</h2>
+        <p>Advancing Freshness Detection through Machine Learning</p>
+        <div class="research-content">
+            <div class="research-section">
+                <h3>Data Collection</h3>
+                <p>We gather comprehensive datasets to train our ML models...</p>
+            </div>
+            <div class="research-section">
+                <h3>Algorithm Development</h3>
+                <p>Our experts refine sophisticated algorithms to improve...</p>
+            </div>
+            <div class="research-section">
+                <h3>Validation</h3>
+                <p>We rigorously test our scoring systems to ensure precision...</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Upload Section -->
+<section class="upload-section" id="upload-section">
+    <h3>Upload an Image for Freshness Detection</h3>
+    <form id="upload-form" action="/predict" method="POST" enctype="multipart/form-data">
+        <input type="file" name="image" accept="image/*" required><br>
+        <button type="submit">Upload Image</button>
+    </form>
+
+        <!-- Result Section -->
+    {% if prediction %}
+    <div id="result" class="result-section" style="display: block;">
+        <p id="freshness-result">Prediction: {{ prediction }}</p>
+    </div>
+    {% endif %}
+
+    <!-- Uploaded Image Display -->
+    {% if uploaded_img %}
+    <div style="margin-top: 20px;">
+        <img src="{{ url_for('static', filename='img/' + uploaded_img) }}" alt="Uploaded Image" style="max-width: 300px;">
+    </div>
+    {% endif %}
+
+    <!--Login Section-->
+{% if user %}
+<p>Welcome, {{ user }}!</p>
+<a href="{{ url_for('logout') }}">Logout</a>
+{% else %}
+<a href="{{ url_for('login') }}">Login</a>
+<a href="{{ url_for('register') }}">Register</a>
+{% endif %}
+
+</section>
+
+    <footer>
+        <p>Stay Connected with Us</p>
+        <input type="email" placeholder="Enter Your Email">
+        <button>Subscribe</button>
+        <p>Riya Behl | Hanshika Arora | 99xxxxxxxx</p>
+    </footer>
+
+    <script>
+        // Scroll to top function
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Toggle light/dark mode
+        function toggleTheme() {
+            const body = document.body;
+            const themeIcon = document.getElementById('theme-icon');
+            body.classList.toggle('dark-mode');
+
+            if (body.classList.contains('dark-mode')) {
+                themeIcon.textContent = '🌞'; // Sun icon when dark mode is active
+            } else {
+                themeIcon.textContent = '🌙'; // Moon icon when light mode is active
+            }
+        }
+
+        // to redirect the page 
+        function redirectToRegister() {
+            window.location.href = "/register";
+        }
+    </script>
+</body>
+</html>
